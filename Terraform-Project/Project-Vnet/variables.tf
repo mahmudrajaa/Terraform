@@ -9,11 +9,8 @@ variable "vnet_purpose" {
   default = "homework2vnet"
 }
 
-variable "vnet_name" {
-  type=string
-  default = "dev-homework2-vnet1"
-}
-variable "rgname" {
+
+variable "rg_name" {
     type=string
   default = "dev-Homework2-rg"
 }

@@ -1,17 +1,7 @@
-variable "vnet-name" {
+
+variable "rg_name" {
     type = string
-     validation {
-    condition     = can(regex("^[a-zA-Z0-9]+(?:-[a-zA-Z0-9]+)*$", var.vnet-name))
-    error_message = "The virtual network name must be a non-empty string containing only alphanumeric characters and hyphens, and cannot start or end with a hyphen."
-  }
-}
-variable "resourcegroup_name" {
-    type = string
-    validation {
-      condition = length(var.resourcegroup_name)>0
-      error_message = "The resource group must not be empty"
-    }
-  
+    default = "value"
 }
 variable "location" {
     type = string

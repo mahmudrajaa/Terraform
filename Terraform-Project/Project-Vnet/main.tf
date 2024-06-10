@@ -19,7 +19,7 @@ provider "azurerm" {
 }
 
 data "azurerm_resource_group" "existing_rg" {
-  name = var.rgname 
+  name = var.rg_name 
 }
 
 locals {
@@ -33,9 +33,7 @@ locals {
 
 module "virtual_network" {
   source              = "../modules/VirtualNetwork"
-  vnet-name           = var.vnet_name
   address_space       = [local.base_cidr]
-  resourcegroup_name  = data.azurerm_resource_group.existing_rg.name
   location            = data.azurerm_resource_group.existing_rg.location
   subnet-name         = { for subnet in local.subnets : subnet.name => { name = subnet.name, prefix = cidrsubnet(local.base_cidr, subnet.newbits, subnet.netnum) } }
   environment         = var.environment

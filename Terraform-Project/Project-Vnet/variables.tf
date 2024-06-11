@@ -6,11 +6,15 @@ variable "environment" {
 
 variable "vnet_purpose" {
   type = string
-  default = "homework2vnet"
+  default = "Project2vnet"
+}
+
+variable "rgpurpose" {
+  default = "Tf-Project"
+}
+
+variable "rglocation"{
+     default = "eastus"
 }
 
 
-variable "rg_name" {
-    type=string
-  default = "dev-Homework2-rg"
-}

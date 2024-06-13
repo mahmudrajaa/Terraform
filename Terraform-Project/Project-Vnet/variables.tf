@@ -35,3 +35,18 @@ variable "fip_name"{
   type = string
   default = "tfprojectfip"
 }
+
+variable backendpoolname {
+  type = string
+  default="webapppool"
+}
+
+variable lbrulename {
+  type = string
+  default = "lbrule1"
+}
+
+variable lbprobename {
+  type = string
+  default = "lbhealthprobe1"
+}

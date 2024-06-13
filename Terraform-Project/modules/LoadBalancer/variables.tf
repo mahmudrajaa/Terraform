@@ -48,6 +48,18 @@ variable "frontend_ip_configuration" {
 }
 
 
+variable backendpoolname {
+  type = string
+}
+
+variable lbrulename {
+  type = string
+}
+
+variable lbprobename {
+  type = string
+}
+
 variable "tags" {
   type = map(string)
   default = {

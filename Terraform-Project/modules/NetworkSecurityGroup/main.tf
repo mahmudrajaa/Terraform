@@ -43,13 +43,4 @@ resource "azurerm_network_security_group" "this" {
   }
 }
 
-resource "azurerm_subnet_network_security_group_association" "this" {
-  for_each = local.nsg_name
 
-  subnet_id                 = local.subnets[each.key].id
-  network_security_group_id = azurerm_network_security_group.this[each.key].id
-
-  depends_on = [
-    azurerm_network_security_group.this
-  ]
-}

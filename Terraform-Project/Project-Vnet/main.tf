@@ -79,6 +79,13 @@ module "NSG" {
 
 }
 
+module "NSGAssociation" {
+  source="../modules/NSGAssociation"
+  depends_on = [
+    module.NSG
+  ]
+}
+
 module "PublicIP" {
   source            = "../modules/PublicIP"
   rg_name           = data.azurerm_resource_group.existing_rg.name

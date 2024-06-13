@@ -33,6 +33,11 @@ data "azurerm_resource_group" "existing_rg" {
   name = data.terraform_remote_state.network.outputs.rg_details.rg_details.name
 }
 
+data "azurerm_public_ip" "existing_ip"{
+  name=split("/",data.terraform_remote_state.network.outputs.publicIP.public_ip_id)[8]
+  resource_group_name = data.terraform_remote_state.network.outputs.rg_details.rg_details.name
+}
+
 
 locals {
   base_cidr = "10.1.0.0/16"
@@ -45,7 +50,7 @@ locals {
 
 module "resource-group" {
   source      = "../modules/ResourceGroup"
-  rglocation  = var.rglocation
+  rglocation  = data.azurerm_resource_group.existing_rg.location
   environment = var.environment
   rgpurpose   = var.rgpurpose
 }
@@ -72,6 +77,27 @@ module "NSG" {
   rg_name  = data.azurerm_resource_group.existing_rg.name
   location = data.azurerm_resource_group.existing_rg.location
 
+}
+
+module "PublicIP" {
+  source        = "../modules/PublicIP"
+  rg_name  = data.azurerm_resource_group.existing_rg.name
+  location=data.azurerm_resource_group.existing_rg.location
+  publicip_name = var.IPName
+  allocation_method = var.alloc_method
+
+}
+module "LoadBalancer"{
+source        = "../modules/LoadBalancer"
+lbname=var.lbname
+rg_name  = data.azurerm_resource_group.existing_rg.name
+location=data.azurerm_resource_group.existing_rg.location
+  frontend_ip_configuration = {
+    example_frontend = {
+        name = var.fip_name
+        public_ip_address_id = data.azurerm_public_ip.existing_ip.id
+    }
+  }
 }
 
 

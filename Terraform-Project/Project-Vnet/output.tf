@@ -10,3 +10,10 @@ output "vnets" {
  value = module.NSG
 }
 
+output "publicIP"{
+  value=module.PublicIP
+}
+
+output "lb_details" {
+  value=module.LoadBalancer
+}

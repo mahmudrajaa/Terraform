@@ -17,4 +17,21 @@ variable "rglocation"{
      default = "eastus"
 }
 
+variable "IPName"{
+type=string
+default="TfprojectIP"
+}
+variable "alloc_method"{
+type=string
+default="Static"
+}
 
+variable "lbname"{
+  type=string
+default="tfproject_lb"
+}
+
+variable "fip_name"{
+  type = string
+  default = "tfprojectfip"
+}
